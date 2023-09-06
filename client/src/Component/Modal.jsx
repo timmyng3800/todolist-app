@@ -1,18 +1,44 @@
 import React, { useState } from "react";
 
-const Modal = ({ mode, setShowModal, task }) => {
+const Modal = ({ mode, setShowModal, task, getData }) => {
   console.log(mode);
   const editMode = mode === "edit" ? true : false;
   const [data, setData] = useState({
-    user_email: editMode ? task.user_email : null,
+    user_email: editMode ? task.user_email : "quanganhtin2000@gmail.com",
     title: editMode ? task.title : null,
     progress: editMode ? task.progress : null,
     date: "",
   });
 
-  const postData = () => {
+  const postData = async (e) => {
+    e.preventDefault();
     try {
-      fetch();
+      const response = await fetch("http://localhost:8000/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 200) {
+        console.log("WORKS");
+        setShowModal(false);
+        getData();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editData = async (e) => {
+    try {
+      const response = await fetch(`http://localhost:8000/todos/${task.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 200) {
+        setShowModal(false);
+        getData();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -24,8 +50,6 @@ const Modal = ({ mode, setShowModal, task }) => {
       ...data,
       [name]: value,
     }));
-
-    console.log(data);
   };
   return (
     <div className="overlay">
@@ -65,6 +89,7 @@ const Modal = ({ mode, setShowModal, task }) => {
           <input
             type="submit"
             class=" flex-col self-center flex items-center justify-items-center  px-4 py-2 bg-gray-400 hover:bg-gray-700 text-white text-sm font-medium rounded-md w-1/2"
+            onClick={editMode ? editData : postData}
           />
         </form>
       </div>
