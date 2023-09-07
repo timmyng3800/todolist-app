@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import ProgressBar from "./ProgressBar";
 
 const ListItem = ({ tasks, getData }) => {
   const [showModal, setShowModal] = useState(false);
@@ -17,9 +18,12 @@ const ListItem = ({ tasks, getData }) => {
   };
   return (
     <div className="flex flex-row mx-5 mt-10 justify-between border border-gray-300 py-4 rounded-lg">
-      <p className="pl-5">{tasks?.title}</p>
-      <div>
-        <p>{tasks?.progress}</p>
+      <div className="w-56">
+      <p className="pl-5 pt-2">{tasks?.title}</p>
+
+      </div>
+      <div className="pt-3.5">
+        <ProgressBar progress={tasks?.progress} />
       </div>
       <div className="pr-5">
         <button

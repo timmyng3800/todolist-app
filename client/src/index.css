@@ -40,3 +40,20 @@ padding: 50px;
 border-radius: 10px;
 box-shadow: 12px 12px 2px 1px rgba(134, 166, 173, 0.73);
 }
+
+.outer-bar {
+  width: 200px;
+  height: 14px;
+  background-color: rgb(216,216,216);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.inner-bar{
+  height: 14px;
+ 
+}
+
+.login {
+  background-image: url("../src/asset/image/151.jpg");
+}
