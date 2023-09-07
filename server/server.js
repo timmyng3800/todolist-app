@@ -73,7 +73,7 @@ app.delete("/todos/:id", async (req, res) => {
 
 //signup
 
-app.post("/todos/:signup", async (req, res) => {
+app.post("/todos/signup", async (req, res) => {
   const { email, password } = req.body;
   const salt = bcrypt.genSaltSync(10);
   const hashedpassword = bcrypt.hashSync(password, salt);
@@ -88,12 +88,14 @@ app.post("/todos/:signup", async (req, res) => {
     console.log(err);
     if (err) {
       res.json({ detail: err.detail });
+      console.log("no it didnt work for signed up12");
+
     }
   }
 });
 
 //login
-app.post("/todos/:login", async (req, res) => {
+app.post("/todos/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await pool.query("SELECT * FROM users WHERE email = $1", [
@@ -121,6 +123,7 @@ app.post("/todos/:login", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    console.log("no it didnt work for login");
   }
 });
 
